@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "992755110480",
+    "firebase_url": "https://suitcaseinventory-default-rtdb.firebaseio.com",
+    "project_id": "suitcaseinventory",
+    "storage_bucket": "suitcaseinventory.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:992755110480:android:238a4157f178d7171bb755",
+        "android_client_info": {
+          "package_name": "com.valairan.inventory"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "992755110480-l8g9jg11kmm1jvbtfdr202m5n50k6t9b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBxwB26ZSXg0PlpmhlJtp_enfyYZeW-cFs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "992755110480-l8g9jg11kmm1jvbtfdr202m5n50k6t9b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

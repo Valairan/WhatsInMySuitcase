@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    tools:context=".ListItem"
+    android:layout_marginTop="16dp"
+    android:background="@color/SecondaryGrey">
+
+    <TextView
+        android:id="@+id/itemName"
+        android:layout_margin="6dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/PrimaryGrey"
+        android:textSize="28sp"
+        android:fontFamily="@font/poppinsregular"
+        android:text="Item Name"/>
+    <TextView
+        android:id="@+id/itemQuantity"
+        android:layout_below="@+id/itemName"
+        android:layout_margin="6dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/PrimaryGrey"
+        android:textSize="18sp"
+        android:fontFamily="@font/poppinsregular"
+        android:text="Quantity"/>
+    <TextView
+        android:id="@+id/Location"
+        android:layout_below="@+id/itemQuantity"
+        android:layout_margin="6dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/PrimaryGrey"
+        android:textSize="18sp"
+        android:fontFamily="@font/poppinsregular"
+        android:text="Location"/>
+    <TextView
+        android:id="@+id/SpecialNotes"
+        android:layout_below="@+id/Location"
+        android:layout_margin="6dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/PrimaryGrey"
+        android:textSize="18sp"
+        android:fontFamily="@font/poppinsregular"
+        android:text="Special Notes"/>
+
+    <ImageView
+        android:id="@+id/itemImage"
+        android:layout_width="125dp"
+        android:layout_height="123dp"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="16dp" />
+
+
+</RelativeLayout>

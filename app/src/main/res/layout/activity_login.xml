@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginActivity"
+    android:background="@color/LesserBlack">
+
+
+    <TextView
+        android:id="@+id/AppNameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:fontFamily="@font/montecarlo"
+        android:text="What's In My Suitcase?"
+        android:textColor="@color/PrimaryGrey"
+        android:textSize="42sp" />
+
+    <EditText
+        android:id="@+id/uNameEntry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/AppNameLabel"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="12dp"
+        android:backgroundTint="@color/PrimaryBlue"
+        android:fontFamily="@font/poppinsregular"
+        android:hint="Email..."
+        android:textColor="@color/PrimaryGrey"
+        android:textColorHint="@color/SecondaryGrey"
+        android:maxLines="1"
+        android:inputType="textEmailAddress"
+        android:textSize="28sp" />
+
+    <EditText
+        android:id="@+id/pWordEntry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/uNameEntry"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="12dp"
+        android:backgroundTint="@color/PrimaryBlue"
+        android:fontFamily="@font/poppinsregular"
+        android:hint="Password..."
+        android:textColor="@color/PrimaryGrey"
+        android:textColorHint="@color/SecondaryGrey"
+        android:maxLines="1"
+        android:inputType="textPassword"
+        android:textSize="28sp" />
+
+    <Button
+        android:id="@+id/loginButton"
+        android:layout_below="@+id/pWordEntry"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/PrimaryBlue"
+        android:textColor="@color/PrimaryGrey"
+        android:textSize="18sp"
+        android:fontFamily="@font/poppinsregular"
+        android:text="Login"/>
+
+    <TextView
+        android:id="@+id/switchToSignUp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="28dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:fontFamily="@font/poppinsthin"
+        android:text="New user? Click here..."/>
+
+
+</RelativeLayout>

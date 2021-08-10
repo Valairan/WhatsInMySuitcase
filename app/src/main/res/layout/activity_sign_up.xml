@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LoginActivity"
+    android:background="@color/LesserBlack">
+
+    <EditText
+        android:id="@+id/fNameEntry"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/PrimaryBlue"
+        android:textColorHint="@color/SecondaryGrey"
+        android:textColor="@color/PrimaryGrey"
+        android:textSize="28sp"
+        android:fontFamily="@font/poppinsregular"
+        android:maxLines="1"
+        android:hint="First Name..."/>
+
+    <EditText
+        android:id="@+id/lNameEntry"
+        android:layout_below="@+id/fNameEntry"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/PrimaryBlue"
+        android:textColorHint="@color/SecondaryGrey"
+        android:textColor="@color/PrimaryGrey"
+        android:textSize="28sp"
+        android:fontFamily="@font/poppinsregular"
+        android:maxLines="1"
+        android:hint="Last Name..."/>
+
+
+    <EditText
+        android:id="@+id/new_uNameEntry"
+        android:layout_below="@+id/lNameEntry"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/PrimaryBlue"
+        android:textColorHint="@color/SecondaryGrey"
+        android:textColor="@color/PrimaryGrey"
+        android:textSize="28sp"
+        android:fontFamily="@font/poppinsregular"
+        android:maxLines="1"
+        android:inputType="textEmailAddress"
+        android:hint="Email..."/>
+
+    <EditText
+        android:id="@+id/new_pWordEntry"
+        android:layout_below="@+id/new_uNameEntry"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/PrimaryBlue"
+        android:textColorHint="@color/SecondaryGrey"
+        android:textColor="@color/PrimaryGrey"
+        android:textSize="28sp"
+        android:fontFamily="@font/poppinsregular"
+        android:maxLines="1"
+        android:inputType="textPassword"
+        android:hint="Password..."/>
+
+    <Button
+        android:id="@+id/signUpButton"
+        android:layout_below="@+id/new_pWordEntry"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/PrimaryBlue"
+        android:textColor="@color/PrimaryGrey"
+        android:textSize="18sp"
+        android:fontFamily="@font/poppinsregular"
+        android:text="Sign Up"/>
+
+    <TextView
+        android:id="@+id/accountExistsText"
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="28dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:fontFamily="@font/poppinsthin"
+        android:text="Have an account? Click here..."/>
+
+
+</RelativeLayout>
