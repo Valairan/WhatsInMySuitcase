@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="32dp"
+    android:background="@color/PureBlack"
+    android:orientation="vertical"
+    tools:context=".AddBag">
+
+    <EditText
+        android:id="@+id/bagNameEntry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="12dp"
+        android:backgroundTint="@color/PrimaryBlue"
+        android:fontFamily="@font/poppinsregular"
+        android:hint="Bag Name"
+        android:inputType="textEmailAddress"
+        android:maxLines="1"
+        android:textColor="@color/PrimaryGrey"
+        android:textColorHint="@color/SecondaryGrey"
+        android:textSize="28sp" />
+
+    <EditText
+        android:id="@+id/bagCapacityEntry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="12dp"
+        android:backgroundTint="@color/PrimaryBlue"
+        android:fontFamily="@font/poppinsregular"
+        android:hint="Bag Type or Capacity"
+        android:inputType="textEmailAddress"
+        android:maxLines="1"
+        android:textColor="@color/PrimaryGrey"
+        android:textColorHint="@color/SecondaryGrey"
+        android:textSize="28sp" />
+
+    <EditText
+        android:id="@+id/bagInformation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="12dp"
+        android:backgroundTint="@color/PrimaryBlue"
+        android:fontFamily="@font/poppinsregular"
+        android:hint="Special Notes"
+        android:inputType="textEmailAddress"
+        android:maxLines="1"
+        android:textColor="@color/PrimaryGrey"
+        android:textColorHint="@color/SecondaryGrey"
+        android:textSize="28sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:orientation="horizontal">
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/cancelButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:backgroundTint="@color/PrimaryBlue"
+            android:fontFamily="@font/poppinsregular"
+            android:text="Cancel"
+            android:textColor="@color/PrimaryGrey"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/updateButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:backgroundTint="@color/PrimaryBlue"
+            android:fontFamily="@font/poppinsregular"
+            android:text="Update"
+            android:textColor="@color/PrimaryGrey"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+</LinearLayout>
+

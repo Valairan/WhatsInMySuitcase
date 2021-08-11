@@ -4,62 +4,71 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
-    android:background="@color/LesserBlack">
+    android:animateLayoutChanges="true"
+    android:background="@color/LesserBlack"
+    tools:context=".MainActivity">
 
-    <GridLayout
-        android:id="@+id/selectionGrid"
+
+    <Spinner
+        android:id="@+id/bagSelector"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:columnCount="2"
-        android:rowCount="1">
-
-        <Spinner
-            android:id="@+id/bagSelector"
-            android:layout_width="109dp"
-            android:layout_height="48dp"
-            android:layout_row="1"
-            android:layout_columnWeight="7"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:background="@color/PrimaryBlue"
-            android:foregroundTint="@color/PrimaryBlue" />
-        <Button
-            android:id="@+id/addBagButton"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="16dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/PrimaryBlue"
-            android:textColor="@color/PrimaryGrey"
-            android:textSize="18sp"
-            android:fontFamily="@font/poppinsregular"
-            android:text="Add bag"/>
-    </GridLayout>
-
-
-    <ListView
-        android:id="@+id/listOfItems"
-        android:layout_below="@id/selectionGrid"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_marginEnd="16dp"
+        android:dropDownSelector="@color/PureBlack"
+        android:textColor="@color/PrimaryGrey"
+        android:textSize="18sp" />
 
+    <Button
+        android:id="@+id/removeBagButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bagSelector"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_toStartOf="@id/addBagButton"
+        android:backgroundTint="@color/PrimaryBlue"
+        android:fontFamily="@font/poppinsregular"
+        android:text="- bag"
+        android:textColor="@color/PrimaryGrey"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/addBagButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bagSelector"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="@color/PrimaryBlue"
+        android:fontFamily="@font/poppinsregular"
+        android:text="+ bag"
+        android:textColor="@color/PrimaryGrey"
+        android:textSize="18sp" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/listOfItems"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/addBagButton"
+        android:layout_marginTop="16dp" />
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        app:maxImageSize="38dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:rippleColor="@color/SecondaryBlue"
-        app:tint="@null"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:src="@drawable/ic_baseline_add_28"
         app:backgroundTint="@color/PrimaryBlue"
-        android:src="@drawable/ic_baseline_add_28" />
+        app:maxImageSize="38dp"
+        app:rippleColor="@color/SecondaryBlue"
+        app:tint="@null" />
 
 
 </RelativeLayout>

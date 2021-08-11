@@ -4,49 +4,69 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    tools:context=".ListItem"
     android:layout_marginTop="16dp"
-    android:background="@color/SecondaryGrey">
+    android:animateLayoutChanges="true"
+    android:background="@color/PureBlack"
+    tools:context=".ListItem">
 
     <TextView
-        android:id="@+id/itemName"
-        android:layout_margin="6dp"
+        android:id="@+id/Title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/PrimaryGrey"
-        android:textSize="28sp"
+        android:layout_marginStart="6dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="6dp"
+        android:layout_marginBottom="8dp"
         android:fontFamily="@font/poppinsregular"
-        android:text="Item Name"/>
+        android:text="Item Name"
+        android:textColor="@color/PrimaryGrey"
+        android:textSize="28sp" />
+
     <TextView
-        android:id="@+id/itemQuantity"
-        android:layout_below="@+id/itemName"
-        android:layout_margin="6dp"
+        android:id="@+id/label"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/PrimaryGrey"
-        android:textSize="18sp"
+        android:layout_below="@+id/Title"
+        android:layout_margin="8dp"
         android:fontFamily="@font/poppinsregular"
-        android:text="Quantity"/>
+        android:text="Quantity"
+        android:textColor="@color/PrimaryGrey"
+        android:textSize="18sp" />
+
     <TextView
         android:id="@+id/Location"
-        android:layout_below="@+id/itemQuantity"
-        android:layout_margin="6dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/PrimaryGrey"
-        android:textSize="18sp"
+        android:layout_below="@+id/label"
+        android:layout_margin="8dp"
         android:fontFamily="@font/poppinsregular"
-        android:text="Location"/>
+        android:text="Location"
+        android:textColor="@color/PrimaryGrey"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/itemType"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Location"
+        android:layout_margin="8dp"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="@font/poppinsregular"
+        android:text="Item type"
+        android:textColor="@color/PrimaryGrey"
+        android:textSize="18sp" />
+
     <TextView
         android:id="@+id/SpecialNotes"
-        android:layout_below="@+id/Location"
-        android:layout_margin="6dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/PrimaryGrey"
-        android:textSize="18sp"
+        android:layout_below="@+id/itemType"
+        android:layout_margin="8dp"
+        android:layout_marginBottom="16dp"
         android:fontFamily="@font/poppinsregular"
-        android:text="Special Notes"/>
+        android:text="Special Notes"
+        android:textColor="@color/PrimaryGrey"
+        android:textSize="18sp" />
 
     <ImageView
         android:id="@+id/itemImage"

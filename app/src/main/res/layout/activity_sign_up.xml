@@ -1,104 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity"
-    android:background="@color/LesserBlack">
+    android:animateLayoutChanges="true"
+    android:background="@color/LesserBlack"
+    tools:context=".LoginActivity">
 
     <EditText
         android:id="@+id/fNameEntry"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="12dp"
         android:backgroundTint="@color/PrimaryBlue"
-        android:textColorHint="@color/SecondaryGrey"
-        android:textColor="@color/PrimaryGrey"
-        android:textSize="28sp"
         android:fontFamily="@font/poppinsregular"
+        android:hint="First Name..."
         android:maxLines="1"
-        android:hint="First Name..."/>
+        android:textColor="@color/PrimaryGrey"
+        android:textColorHint="@color/SecondaryGrey"
+        android:textSize="28sp" />
 
     <EditText
         android:id="@+id/lNameEntry"
-        android:layout_below="@+id/fNameEntry"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/fNameEntry"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="12dp"
         android:backgroundTint="@color/PrimaryBlue"
-        android:textColorHint="@color/SecondaryGrey"
-        android:textColor="@color/PrimaryGrey"
-        android:textSize="28sp"
         android:fontFamily="@font/poppinsregular"
+        android:hint="Last Name..."
         android:maxLines="1"
-        android:hint="Last Name..."/>
+        android:textColor="@color/PrimaryGrey"
+        android:textColorHint="@color/SecondaryGrey"
+        android:textSize="28sp" />
 
 
     <EditText
         android:id="@+id/new_uNameEntry"
-        android:layout_below="@+id/lNameEntry"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/lNameEntry"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="12dp"
         android:backgroundTint="@color/PrimaryBlue"
-        android:textColorHint="@color/SecondaryGrey"
-        android:textColor="@color/PrimaryGrey"
-        android:textSize="28sp"
         android:fontFamily="@font/poppinsregular"
-        android:maxLines="1"
+        android:hint="Email..."
         android:inputType="textEmailAddress"
-        android:hint="Email..."/>
+        android:maxLines="1"
+        android:textColor="@color/PrimaryGrey"
+        android:textColorHint="@color/SecondaryGrey"
+        android:textSize="28sp" />
 
     <EditText
         android:id="@+id/new_pWordEntry"
-        android:layout_below="@+id/new_uNameEntry"
-        android:layout_marginTop="16dp"
-        android:layout_marginLeft="12dp"
-        android:layout_marginRight="12dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/new_uNameEntry"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="12dp"
         android:backgroundTint="@color/PrimaryBlue"
-        android:textColorHint="@color/SecondaryGrey"
-        android:textColor="@color/PrimaryGrey"
-        android:textSize="28sp"
         android:fontFamily="@font/poppinsregular"
-        android:maxLines="1"
+        android:hint="Password..."
         android:inputType="textPassword"
-        android:hint="Password..."/>
+        android:maxLines="1"
+        android:textColor="@color/PrimaryGrey"
+        android:textColorHint="@color/SecondaryGrey"
+        android:textSize="28sp" />
 
     <Button
         android:id="@+id/signUpButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/new_pWordEntry"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:backgroundTint="@color/PrimaryBlue"
-        android:textColor="@color/PrimaryGrey"
-        android:textSize="18sp"
         android:fontFamily="@font/poppinsregular"
-        android:text="Sign Up"/>
+        android:text="Sign Up"
+        android:textColor="@color/PrimaryGrey"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/accountExistsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerInParent="true"
         android:layout_marginBottom="28dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:textSize="16sp"
         android:fontFamily="@font/poppinsthin"
-        android:text="Have an account? Click here..."/>
+        android:text="Have an account? Click here..."
+        android:textColor="@color/white"
+        android:textSize="16sp" />
 
 
 </RelativeLayout>

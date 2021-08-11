@@ -55,7 +55,7 @@ public class SignUpActivity extends AppCompatActivity {
         currentAuth = FirebaseAuth.getInstance();
 
         mDatabase = FirebaseDatabase.getInstance();
-        currentRef = mDatabase.getReference("Users");
+        //currentRef = mDatabase.getReference("Users");
 
 
         signUpButton.setOnClickListener(new View.OnClickListener() {
