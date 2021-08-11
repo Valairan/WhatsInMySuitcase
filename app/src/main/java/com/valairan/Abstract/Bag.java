@@ -1,4 +1,4 @@
-package com.valairan.inventory;
+package com.valairan.Abstract;
 
 public class Bag {
     public String fullName;

@@ -1,79 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
     android:layout_marginTop="16dp"
     android:animateLayoutChanges="true"
-    android:background="@color/PureBlack"
-    tools:context=".ListItem">
+    android:backgroundTint="@color/PureBlack"
+    app:cardCornerRadius="4dp"
+    tools:context="com.valairan.Fragments.ListItem">
 
-    <TextView
-        android:id="@+id/Title"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="6dp"
-        android:layout_marginTop="6dp"
-        android:layout_marginEnd="6dp"
-        android:layout_marginBottom="8dp"
-        android:fontFamily="@font/poppinsregular"
-        android:text="Item Name"
-        android:textColor="@color/PrimaryGrey"
-        android:textSize="28sp" />
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/label"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/Title"
-        android:layout_margin="8dp"
-        android:fontFamily="@font/poppinsregular"
-        android:text="Quantity"
-        android:textColor="@color/PrimaryGrey"
-        android:textSize="18sp" />
+        <TextView
+            android:id="@+id/itemTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="6dp"
+            android:layout_marginBottom="8dp"
+            android:fontFamily="@font/poppinsregular"
+            android:text="Item Name"
+            android:textColor="@color/SecondaryBlue"
+            android:textSize="28sp" />
 
-    <TextView
-        android:id="@+id/Location"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/label"
-        android:layout_margin="8dp"
-        android:fontFamily="@font/poppinsregular"
-        android:text="Location"
-        android:textColor="@color/PrimaryGrey"
-        android:textSize="18sp" />
+        <TextView
+            android:id="@+id/itemCount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/itemTitle"
+            android:layout_margin="8dp"
+            android:fontFamily="@font/poppinsthin"
+            android:text="Quantity"
+            android:textColor="@color/SecondaryBlue"
+            android:textSize="18sp" />
 
-    <TextView
-        android:id="@+id/itemType"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/Location"
-        android:layout_margin="8dp"
-        android:layout_marginBottom="16dp"
-        android:fontFamily="@font/poppinsregular"
-        android:text="Item type"
-        android:textColor="@color/PrimaryGrey"
-        android:textSize="18sp" />
+        <TextView
+            android:id="@+id/itemLocation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/itemCount"
+            android:layout_margin="8dp"
+            android:fontFamily="@font/poppinsthin"
+            android:text="Location"
+            android:textColor="@color/SecondaryBlue"
+            android:textSize="18sp" />
 
-    <TextView
-        android:id="@+id/SpecialNotes"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/itemType"
-        android:layout_margin="8dp"
-        android:layout_marginBottom="16dp"
-        android:fontFamily="@font/poppinsregular"
-        android:text="Special Notes"
-        android:textColor="@color/PrimaryGrey"
-        android:textSize="18sp" />
+        <TextView
+            android:id="@+id/itemType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/itemLocation"
+            android:layout_margin="8dp"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="@font/poppinsthin"
+            android:text="Item type"
+            android:textColor="@color/SecondaryBlue"
+            android:textSize="18sp" />
 
-    <ImageView
-        android:id="@+id/itemImage"
-        android:layout_width="125dp"
-        android:layout_height="123dp"
-        android:layout_alignParentEnd="true"
-        android:layout_margin="16dp" />
+        <TextView
+            android:id="@+id/SpecialNotes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/itemType"
+            android:layout_margin="8dp"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="@font/poppinsthin"
+            android:text="Special Notes"
+            android:textColor="@color/SecondaryBlue"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/itemImage"
+            android:layout_width="125dp"
+            android:layout_height="123dp"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="16dp" />
+
+    </RelativeLayout>
 
 
-</RelativeLayout>
+</androidx.cardview.widget.CardView>

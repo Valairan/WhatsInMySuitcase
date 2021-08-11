@@ -1,4 +1,4 @@
-package com.valairan.inventory;
+package com.valairan.Abstract;
 
 public class User {
     public String fullName;

@@ -1,23 +1,19 @@
 package com.valairan.inventory;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -25,6 +21,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.valairan.Abstract.Item;
+import com.valairan.Abstract.suitcaseForSpinner;
+import com.valairan.Fragments.AddBag;
+import com.valairan.adapters.InventoryAdapter;
+import com.valairan.adapters.SuitcaseAdapter;
 
 import java.util.ArrayList;
 
@@ -34,16 +35,23 @@ public class MainActivity extends AppCompatActivity {
     String currentUserUID;
     FirebaseDatabase database;
     DatabaseReference databaseRefRoot;
-    DatabaseReference databaseRefChild;
+    DatabaseReference databaseRefBagList;
+    DatabaseReference databaseRefInventory;
 
 
     public Spinner bagSelector;
-    public RecyclerView listOfItems;
+    public RecyclerView inventoryRecyclerView;
     public Button addBagButton;
     public Button removeBagButton;
+    public Button addItemButton;
+
+
+    ArrayList<Item> listOfItems;
+    RecyclerView.Adapter itemSelectorAdapter;
+    RecyclerView.LayoutManager itemSelectorLayoutManager;
 
     ArrayList<suitcaseForSpinner> listOfBags;
-    SuitcaseAdapter bagSelectorList;
+    SuitcaseAdapter bagSelectorAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,19 +62,32 @@ public class MainActivity extends AppCompatActivity {
         currentUserUID = currentUser.getUid();
         database = FirebaseDatabase.getInstance();
         databaseRefRoot = database.getReference("Users");
-        databaseRefChild = databaseRefRoot.child(currentUserUID).child("ListOfBags");
+        databaseRefBagList = databaseRefRoot.child(currentUserUID).child("ListOfBags");
+        databaseRefInventory = databaseRefRoot.child(currentUserUID).child("Inventory");
 
-        listOfBags = new ArrayList<>();
         bagSelector = findViewById(R.id.bagSelector);
-        listOfItems = findViewById(R.id.listOfItems);
+
         addBagButton = findViewById(R.id.addBagButton);
         removeBagButton = findViewById(R.id.removeBagButton);
 
-        bagSelectorList = new SuitcaseAdapter(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, listOfBags);
-        bagSelector.setAdapter(bagSelectorList);
-        bagSelectorList.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
-        bagSelectorList.notifyDataSetChanged();
+        addItemButton = findViewById(R.id.addItemButton);
 
+        inventoryRecyclerView = findViewById(R.id.listOfItems);
+
+
+        listOfBags = new ArrayList<>();
+        bagSelectorAdapter = new SuitcaseAdapter(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, listOfBags);
+        bagSelector.setAdapter(bagSelectorAdapter);
+        bagSelectorAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        bagSelectorAdapter.notifyDataSetChanged();
+
+
+        listOfItems = new ArrayList<>();
+        inventoryRecyclerView.setHasFixedSize(true);
+        itemSelectorLayoutManager = new LinearLayoutManager(this);
+        itemSelectorAdapter = new InventoryAdapter(listOfItems);
+        inventoryRecyclerView.setLayoutManager(itemSelectorLayoutManager);
+        inventoryRecyclerView.setAdapter(itemSelectorAdapter);
 
         addBagButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,19 +100,53 @@ public class MainActivity extends AppCompatActivity {
         removeBagButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), " " + bagSelector.getSelectedItem().toString(), Toast.LENGTH_LONG).show();
+
                 suitcaseForSpinner removeThis = (suitcaseForSpinner) bagSelector.getSelectedItem();
-                databaseRefChild.child(removeThis.getName()).removeValue();
+                databaseRefBagList.child(removeThis.getName()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        Toast.makeText(getApplicationContext(), "Removed selected item.", Toast.LENGTH_LONG).show();
+
+                    }
+                });
             }
         });
 
 
-        databaseRefChild.addListenerForSingleValueEvent(bagListener);
+        databaseRefBagList.addValueEventListener(bagListener);
+        databaseRefInventory.addValueEventListener(inventoryListener);
     }
+
+    final ValueEventListener inventoryListener = new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot snapshot) {
+            listOfItems.clear();
+            for (DataSnapshot ds : snapshot.getChildren()) {
+                String key = ds.getKey();
+                Item temp = new Item(ds.child("itemName").getValue().toString(),
+                        ds.child("count").getValue().toString(),
+                        ds.child("location").getValue().toString(),
+                        ds.child("type").getValue().toString(),
+                        ds.child("notes").getValue().toString());
+
+                listOfItems.add(temp);
+                //listOfBags.add(key);
+                Log.e("Key", key);
+            }
+            itemSelectorAdapter.notifyDataSetChanged();
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError error) {
+            Toast.makeText(getApplicationContext(), "Something went wrong. Please reload the app.", Toast.LENGTH_LONG).show();
+
+        }
+    };
 
     final ValueEventListener bagListener = new ValueEventListener() {
         @Override
         public void onDataChange(@NonNull DataSnapshot snapshot) {
+            listOfBags.clear();
             for (DataSnapshot ds : snapshot.getChildren()) {
                 String key = ds.getKey();
                 suitcaseForSpinner temp = new suitcaseForSpinner(key);
@@ -99,7 +154,8 @@ public class MainActivity extends AppCompatActivity {
                 //listOfBags.add(key);
                 Log.e("Key", key);
             }
-            bagSelectorList.notifyDataSetChanged();
+            bagSelectorAdapter.notifyDataSetChanged();
+
         }
 
         @Override
@@ -117,48 +173,5 @@ public class MainActivity extends AppCompatActivity {
 
 }
 
-class SuitcaseAdapter extends ArrayAdapter<suitcaseForSpinner> {
 
-    public SuitcaseAdapter(Context context, int support_simple_spinner_dropdown_item, ArrayList<suitcaseForSpinner> countryList) {
-        super(context, 0, countryList);
-    }
 
-    @NonNull
-    @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        return initView(position, convertView, parent);
-    }
-
-    @Override
-    public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        return initView(position, convertView, parent);
-    }
-
-    private View initView(int position, View convertView, ViewGroup parent) {
-        if (convertView == null) {
-            convertView = LayoutInflater.from(getContext()).inflate(
-                    R.layout.fragment_suitcase_selection, parent, false
-            );
-        }
-
-        TextView textViewName = convertView.findViewById(R.id.suitcaseFragmentItem);
-        suitcaseForSpinner currentItem = getItem(position);
-        if (currentItem != null) {
-            textViewName.setText(currentItem.getName());
-        }
-
-        return convertView;
-    }
-}
-
-class suitcaseForSpinner {
-    public String suitcaseString;
-
-    public suitcaseForSpinner(String suitcaseNString) {
-        suitcaseString = suitcaseNString;
-    }
-
-    public String getName() {
-        return suitcaseString;
-    }
-}

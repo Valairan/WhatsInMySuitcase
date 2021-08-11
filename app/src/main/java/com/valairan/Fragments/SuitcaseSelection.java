@@ -1,4 +1,4 @@
-package com.valairan.inventory;
+package com.valairan.Fragments;
 
 import android.os.Bundle;
 
@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.valairan.inventory.R;
 
 
 public class SuitcaseSelection extends Fragment {

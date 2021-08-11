@@ -20,10 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.Dictionary;
-import java.util.Enumeration;
-import java.util.regex.Pattern;
+import com.valairan.Abstract.User;
 
 public class SignUpActivity extends AppCompatActivity {
 

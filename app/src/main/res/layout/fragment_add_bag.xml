@@ -6,7 +6,7 @@
     android:layout_margin="32dp"
     android:background="@color/PureBlack"
     android:orientation="vertical"
-    tools:context=".AddBag">
+    tools:context="com.valairan.Fragments.AddBag">
 
     <EditText
         android:id="@+id/bagNameEntry"

@@ -14,10 +14,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/uNameEntry"
+        android:layout_alignParentLeft="true"
         android:layout_centerInParent="true"
+        android:layout_marginStart="16dp"
         android:fontFamily="@font/poppinsthin"
-        android:text="What's In My Suitcase?"
-        android:textColor="@color/PrimaryGrey"
+        android:text="What's In My \nSuitcase?"
+        android:textColor="@color/SecondaryBlue"
         android:textSize="40sp" />
 
     <EditText
