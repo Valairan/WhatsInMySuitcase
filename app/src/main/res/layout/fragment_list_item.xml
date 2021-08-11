@@ -23,7 +23,7 @@
             android:layout_marginTop="6dp"
             android:layout_marginEnd="6dp"
             android:layout_marginBottom="8dp"
-            android:fontFamily="@font/poppinsregular"
+            android:fontFamily="@font/poppinsthin"
             android:text="Item Name"
             android:textColor="@color/SecondaryBlue"
             android:textSize="28sp" />
@@ -34,7 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/itemTitle"
             android:layout_margin="8dp"
-            android:fontFamily="@font/poppinsthin"
+            android:fontFamily="@font/poppinsregular"
             android:text="Quantity"
             android:textColor="@color/SecondaryBlue"
             android:textSize="18sp" />
@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/itemCount"
             android:layout_margin="8dp"
-            android:fontFamily="@font/poppinsthin"
+            android:fontFamily="@font/poppinsregular"
             android:text="Location"
             android:textColor="@color/SecondaryBlue"
             android:textSize="18sp" />
@@ -57,7 +57,7 @@
             android:layout_below="@+id/itemLocation"
             android:layout_margin="8dp"
             android:layout_marginBottom="16dp"
-            android:fontFamily="@font/poppinsthin"
+            android:fontFamily="@font/poppinsregular"
             android:text="Item type"
             android:textColor="@color/SecondaryBlue"
             android:textSize="18sp" />
@@ -69,7 +69,7 @@
             android:layout_below="@+id/itemType"
             android:layout_margin="8dp"
             android:layout_marginBottom="16dp"
-            android:fontFamily="@font/poppinsthin"
+            android:fontFamily="@font/poppinsregular"
             android:text="Special Notes"
             android:textColor="@color/SecondaryBlue"
             android:textSize="18sp" />

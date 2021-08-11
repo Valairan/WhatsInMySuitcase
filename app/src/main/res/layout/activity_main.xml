@@ -73,5 +73,12 @@
         app:rippleColor="@color/SecondaryBlue"
         app:tint="@null" />
 
+    <ProgressBar
+        android:id="@+id/loadingIcon_main"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:focusable="false"
+        android:indeterminateTint="@color/PrimaryBlue"/>
 
 </RelativeLayout>

@@ -7,6 +7,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +28,7 @@ public class LoginActivity extends AppCompatActivity {
     public EditText pWordEntry;
     public TextView SignUpPage;
     public Button LoginButton;
+    public ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +39,13 @@ public class LoginActivity extends AppCompatActivity {
         pWordEntry = findViewById(R.id.pWordEntry);
         SignUpPage = findViewById(R.id.switchToSignUp);
         LoginButton = findViewById(R.id.loginButton);
+        progressBar = findViewById(R.id.loadingIcon_login);
 
         uNameEntry.setVisibility(View.INVISIBLE);
         pWordEntry.setVisibility(View.INVISIBLE);
         SignUpPage.setVisibility(View.INVISIBLE);
         LoginButton.setVisibility(View.INVISIBLE);
+        progressBar.setVisibility(View.VISIBLE);
 
         currentAuth = FirebaseAuth.getInstance();
 
@@ -56,17 +60,18 @@ public class LoginActivity extends AppCompatActivity {
 
         FirebaseUser currentUser = currentAuth.getCurrentUser();
 
-        if(currentUser != null){
+        if (currentUser != null) {
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 public void run() {
+                    progressBar.setVisibility(View.GONE);
                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                     startActivity(intent);
                     // Actions to do after 10 seconds
                 }
-            }, 2000);
+            }, 1000);
 
-        }else{
+        } else {
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 public void run() {
@@ -74,6 +79,7 @@ public class LoginActivity extends AppCompatActivity {
                     pWordEntry.setVisibility(View.VISIBLE);
                     SignUpPage.setVisibility(View.VISIBLE);
                     LoginButton.setVisibility(View.VISIBLE);
+                    progressBar.setVisibility(View.GONE);
                     // Actions to do after 10 seconds
                 }
             }, 2000);
@@ -91,17 +97,15 @@ public class LoginActivity extends AppCompatActivity {
     }
 
 
-
-
-    public void attemptLogin(){
+    public void attemptLogin() {
 
         String email = uNameEntry.getText().toString();
         String pass = pWordEntry.getText().toString();
-        if (email.isEmpty() || pass.isEmpty()){
+        if (email.isEmpty() || pass.isEmpty()) {
             Toast.makeText(getApplicationContext(), "Fields are empty...", Toast.LENGTH_SHORT).show();
             return;
-        }else {
-            if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+        } else {
+            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                 uNameEntry.setError("Please enter a valid email.");
                 return;
             }

@@ -82,5 +82,13 @@
         android:textColor="@color/white"
         android:textSize="16sp" />
 
+    <ProgressBar
+        android:id="@+id/loadingIcon_login"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:focusable="false"
+        android:indeterminateTint="@color/PrimaryBlue"/>
+
 
 </RelativeLayout>

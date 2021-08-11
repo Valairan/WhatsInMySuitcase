@@ -10,4 +10,6 @@ public class suitcaseForSpinner {
     public String getName() {
         return suitcaseString;
     }
+
+
 }
