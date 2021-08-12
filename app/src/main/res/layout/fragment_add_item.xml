@@ -9,7 +9,7 @@
     tools:context="com.valairan.Fragments.AddBag">
 
     <EditText
-        android:id="@+id/bagNameEntry"
+        android:id="@+id/itemNameEntry"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="12dp"
@@ -17,7 +17,7 @@
         android:layout_marginRight="12dp"
         android:backgroundTint="@color/PrimaryBlue"
         android:fontFamily="@font/poppinsregular"
-        android:hint="Bag Name"
+        android:hint="Item Name"
         android:inputType="textEmailAddress"
         android:maxLines="1"
         android:textColor="@color/PrimaryGrey"
@@ -25,7 +25,7 @@
         android:textSize="28sp" />
 
     <EditText
-        android:id="@+id/bagCapacityEntry"
+        android:id="@+id/itemTypeEntry"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="12dp"
@@ -33,15 +33,46 @@
         android:layout_marginRight="12dp"
         android:backgroundTint="@color/PrimaryBlue"
         android:fontFamily="@font/poppinsregular"
-        android:hint="Bag Type or Capacity"
+        android:hint="Item Type"
         android:inputType="textEmailAddress"
         android:maxLines="1"
         android:textColor="@color/PrimaryGrey"
         android:textColorHint="@color/SecondaryGrey"
         android:textSize="28sp" />
 
+
     <EditText
-        android:id="@+id/specialNotesEntryAddBag"
+        android:id="@+id/itemQuantityEntry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="12dp"
+        android:backgroundTint="@color/PrimaryBlue"
+        android:fontFamily="@font/poppinsregular"
+        android:hint="Item Quantity"
+        android:inputType="textEmailAddress"
+        android:maxLines="1"
+        android:textColor="@color/PrimaryGrey"
+        android:textColorHint="@color/SecondaryGrey"
+        android:textSize="28sp" />
+    <EditText
+        android:id="@+id/itemLocationEntry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginRight="12dp"
+        android:backgroundTint="@color/PrimaryBlue"
+        android:fontFamily="@font/poppinsregular"
+        android:hint="Item Location"
+        android:inputType="textEmailAddress"
+        android:maxLines="1"
+        android:textColor="@color/PrimaryGrey"
+        android:textColorHint="@color/SecondaryGrey"
+        android:textSize="28sp" />
+    <EditText
+        android:id="@+id/specialNotesEntryAddItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="12dp"
@@ -68,7 +99,7 @@
             android:layout_weight="1" />
 
         <Button
-            android:id="@+id/cancelButtonAddBag"
+            android:id="@+id/cancelButtonAddItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -80,7 +111,7 @@
             android:textSize="18sp" />
 
         <Button
-            android:id="@+id/updateButtonAddBag"
+            android:id="@+id/updateButtonAddItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"

@@ -10,11 +10,12 @@
         <entry key="..\:/Users/daryl/AndroidStudioProjects/WhatsInMySuitcase/app/src/main/res/layout/activity_main.xml" value="0.22929936305732485" />
         <entry key="..\:/Users/daryl/AndroidStudioProjects/WhatsInMySuitcase/app/src/main/res/layout/activity_sign_up.xml" value="0.3619791666666667" />
         <entry key="..\:/Users/daryl/AndroidStudioProjects/WhatsInMySuitcase/app/src/main/res/layout/addbag.xml" value="0.328125" />
-        <entry key="..\:/Users/daryl/AndroidStudioProjects/WhatsInMySuitcase/app/src/main/res/layout/fragment_add_bag.xml" value="0.75" />
+        <entry key="..\:/Users/daryl/AndroidStudioProjects/WhatsInMySuitcase/app/src/main/res/layout/fragment_add_bag.xml" value="0.22" />
+        <entry key="..\:/Users/daryl/AndroidStudioProjects/WhatsInMySuitcase/app/src/main/res/layout/fragment_add_item.xml" value="0.33" />
         <entry key="..\:/Users/daryl/AndroidStudioProjects/WhatsInMySuitcase/app/src/main/res/layout/fragment_add_suitcase.xml" value="0.67" />
         <entry key="..\:/Users/daryl/AndroidStudioProjects/WhatsInMySuitcase/app/src/main/res/layout/fragment_first.xml" value="0.21875" />
         <entry key="..\:/Users/daryl/AndroidStudioProjects/WhatsInMySuitcase/app/src/main/res/layout/fragment_first2.xml" value="0.21875" />
-        <entry key="..\:/Users/daryl/AndroidStudioProjects/WhatsInMySuitcase/app/src/main/res/layout/fragment_list_item.xml" value="0.7131696428571429" />
+        <entry key="..\:/Users/daryl/AndroidStudioProjects/WhatsInMySuitcase/app/src/main/res/layout/fragment_list_item.xml" value="0.67" />
         <entry key="..\:/Users/daryl/AndroidStudioProjects/WhatsInMySuitcase/app/src/main/res/layout/fragment_second.xml" value="0.21875" />
         <entry key="..\:/Users/daryl/AndroidStudioProjects/WhatsInMySuitcase/app/src/main/res/layout/fragment_second2.xml" value="0.21875" />
         <entry key="..\:/Users/daryl/AndroidStudioProjects/WhatsInMySuitcase/app/src/main/res/layout/fragment_suitcase_selection.xml" value="0.8875" />

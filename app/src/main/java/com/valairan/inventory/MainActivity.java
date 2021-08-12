@@ -16,7 +16,9 @@ import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -29,6 +31,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.valairan.Abstract.Item;
 import com.valairan.Abstract.suitcaseForSpinner;
 import com.valairan.Fragments.AddBag;
+import com.valairan.Fragments.AddItem;
 import com.valairan.adapters.InventoryAdapter;
 import com.valairan.adapters.SuitcaseAdapter;
 
@@ -113,23 +116,45 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 suitcaseForSpinner removeThis = (suitcaseForSpinner) bagSelector.getSelectedItem();
-                databaseRefBagList.child(removeThis.getName()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        Toast.makeText(getApplicationContext(), "Removed selected item.", Toast.LENGTH_LONG).show();
+                Log.e(" All items ", removeThis.getName());
+                if(removeThis.getName().equals("All items")){
+                    Toast.makeText(getApplicationContext(), "Nothing was removed.", Toast.LENGTH_LONG).show();
 
-                    }
-                });
+                }else {
+                    databaseRefBagList.child(removeThis.getName()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                        @Override
+                        public void onSuccess(Void unused) {
+                            Toast.makeText(getApplicationContext(), "Removed selected item.", Toast.LENGTH_LONG).show();
+
+                        }
+                    });
+                }
+
             }
         });
-        databaseRefBagList.addValueEventListener(bagListener);
-        databaseRefInventory.addValueEventListener(inventoryListener);
+
+        addItemButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AddItem fragment = new AddItem();
+                fragment.show(getSupportFragmentManager(), "Item adding fragment");
+            }
+        });
+
+
 
 
         bagSelector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 selectedItem = (suitcaseForSpinner) bagSelector.getItemAtPosition(i);
+                databaseRefInventory.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<DataSnapshot> task) {
+                        inventoryListener.onDataChange(task.getResult());
+                    }
+                });
+
             }
 
             @Override
@@ -149,6 +174,11 @@ public class MainActivity extends AppCompatActivity {
                 // Actions to do after 10 seconds
             }
         }, 2000);
+
+        databaseRefBagList.addValueEventListener(bagListener);
+
+        databaseRefInventory.addValueEventListener(inventoryListener);
+
     }
 
     private void hideAll() {
@@ -167,46 +197,6 @@ public class MainActivity extends AppCompatActivity {
         removeBagButton.setVisibility(View.VISIBLE);
         addItemButton.setVisibility(View.VISIBLE);
     }
-
-
-    final ValueEventListener inventoryListener = new ValueEventListener() {
-        @Override
-        public void onDataChange(@NonNull DataSnapshot snapshot) {
-            listOfItems.clear();
-            for (DataSnapshot ds : snapshot.getChildren()) {
-                String key = ds.getKey();
-                if (selectedItem != null && ds.child("location").getValue().toString().equals(selectedItem.getName())) {
-                    Item temp = new Item(ds.child("itemName").getValue().toString(),
-                            ds.child("count").getValue().toString(),
-                            ds.child("location").getValue().toString(),
-                            ds.child("type").getValue().toString(),
-                            ds.child("notes").getValue().toString());
-
-                    listOfItems.add(temp);
-                }else {
-                    if(selectedItem == null || selectedItem.getName().equals("All")){
-                        Item temp = new Item(ds.child("itemName").getValue().toString(),
-                                ds.child("count").getValue().toString(),
-                                ds.child("location").getValue().toString(),
-                                ds.child("type").getValue().toString(),
-                                ds.child("notes").getValue().toString());
-
-                        listOfItems.add(temp);
-                    }
-                }
-
-                //listOfBags.add(key);
-                Log.e("Key", key);
-            }
-            itemSelectorAdapter.notifyDataSetChanged();
-        }
-
-        @Override
-        public void onCancelled(@NonNull DatabaseError error) {
-            Toast.makeText(getApplicationContext(), "Something went wrong. Please reload the app.", Toast.LENGTH_LONG).show();
-
-        }
-    };
 
 
     final ValueEventListener bagListener = new ValueEventListener() {
@@ -230,6 +220,36 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+
+
+    ValueEventListener inventoryListener = new ValueEventListener() {
+        @Override
+        public void onDataChange(@NonNull DataSnapshot snapshot) {
+            listOfItems.clear();
+            for (DataSnapshot ds : snapshot.getChildren()) {
+                String key = ds.getKey();
+
+                if(selectedItem == null || selectedItem.getName().equals("All items") ){
+                    Item temp = new Item(ds.child("itemName").getValue().toString(),
+                            ds.child("itemQuantity").getValue().toString(),
+                            ds.child("itemLocation").getValue().toString(),
+                            ds.child("itemType").getValue().toString(),
+                            ds.child("notes").getValue().toString());
+
+                    listOfItems.add(temp);
+                }
+
+
+            }
+            itemSelectorAdapter.notifyDataSetChanged();
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError error) {
+            Toast.makeText(getApplicationContext(), "Something went wrong. Please reload the app.", Toast.LENGTH_LONG).show();
+
+        }
+    };
 
     @Override
     public void onStart() {

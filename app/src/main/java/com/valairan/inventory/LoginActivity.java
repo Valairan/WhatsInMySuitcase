@@ -60,6 +60,7 @@ public class LoginActivity extends AppCompatActivity {
 
         FirebaseUser currentUser = currentAuth.getCurrentUser();
 
+
         if (currentUser != null) {
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
@@ -75,11 +76,12 @@ public class LoginActivity extends AppCompatActivity {
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 public void run() {
+                    progressBar.setVisibility(View.GONE);
                     uNameEntry.setVisibility(View.VISIBLE);
                     pWordEntry.setVisibility(View.VISIBLE);
                     SignUpPage.setVisibility(View.VISIBLE);
                     LoginButton.setVisibility(View.VISIBLE);
-                    progressBar.setVisibility(View.GONE);
+
                     // Actions to do after 10 seconds
                 }
             }, 2000);

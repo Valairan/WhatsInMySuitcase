@@ -20,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.valairan.Abstract.Bag;
 import com.valairan.Abstract.User;
 
 public class SignUpActivity extends AppCompatActivity {
@@ -96,15 +97,22 @@ public class SignUpActivity extends AppCompatActivity {
                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                             intent.putExtra("userName", fNameEntry.getText().toString());
                             User dbUser = new User(fNameEntry.getText().toString().trim() + " " + lNameEntry.getText().toString().trim(), email);
+                            Bag tempBag = new Bag("All Items", "-", "-");
+
                             mDatabase.getReference("Users").child(user.getUid()).setValue(dbUser).addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
-                                    if(task.isSuccessful()){
-                                        Toast.makeText(getApplicationContext(), "Sign up sucessful.", Toast.LENGTH_LONG).show();
-                                        startActivity(intent);
-                                    }else {
-                                        Toast.makeText(getApplicationContext(), "Sign up failed.", Toast.LENGTH_LONG).show();
-                                    }
+                                    mDatabase.getReference("Users").child(user.getUid()).child("ListOfBags").child("All").setValue(tempBag).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if(task.isSuccessful()){
+                                                Toast.makeText(getApplicationContext(), "Sign up sucessful.", Toast.LENGTH_LONG).show();
+                                                startActivity(intent);
+                                            }else {
+                                                Toast.makeText(getApplicationContext(), "Sign up failed.", Toast.LENGTH_LONG).show();
+                                            }
+                                        }
+                                    });
                                 }
                             });
                         } else {

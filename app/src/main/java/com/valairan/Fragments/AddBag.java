@@ -108,10 +108,10 @@ public class AddBag extends DialogFragment {
 
         bName = getView().findViewById(R.id.bagNameEntry);
         bCapacity = view.findViewById(R.id.bagCapacityEntry);
-        bInstructions = view.findViewById(R.id.bagInformation);
+        bInstructions = view.findViewById(R.id.specialNotesEntryAddBag);
 
-        updateBagList = view.findViewById(R.id.updateButton);
-        cancelFragment = view.findViewById(R.id.cancelButton);
+        updateBagList = view.findViewById(R.id.updateButtonAddBag);
+        cancelFragment = view.findViewById(R.id.cancelButtonAddBag);
 
         currentAuth = FirebaseAuth.getInstance();
         currentUser = currentAuth.getCurrentUser();
