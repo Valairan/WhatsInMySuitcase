@@ -1,4 +1,4 @@
-package com.valairan.inventory;
+package com.valairan.Fragments;
 
 import android.os.Bundle;
 
@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.valairan.inventory.R;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -28,15 +30,7 @@ public class bagRemoveConfirm extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment bagRemoveConfirm.
-     */
-    // TODO: Rename and change types and number of parameters
+
     public static bagRemoveConfirm newInstance(String param1, String param2) {
         bagRemoveConfirm fragment = new bagRemoveConfirm();
         Bundle args = new Bundle();
