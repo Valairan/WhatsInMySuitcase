@@ -61,7 +61,7 @@ public class LoginActivity extends AppCompatActivity {
         FirebaseUser currentUser = currentAuth.getCurrentUser();
 
 
-        if (currentUser != null) {
+        if (currentUser == FirebaseAuth.getInstance().getCurrentUser() && currentUser != null) {
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 public void run() {

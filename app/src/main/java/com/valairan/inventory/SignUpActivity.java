@@ -74,19 +74,19 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
 
-    public void attemptSignUp(){
+    public void attemptSignUp() {
         String email = uNameEntry.getText().toString();
         String pass = pWordEntry.getText().toString();
-        if(email.isEmpty() || pass.isEmpty() || fNameEntry.getText().toString().isEmpty()|| lNameEntry.getText().toString().isEmpty()){
+        if (email.isEmpty() || pass.isEmpty() || fNameEntry.getText().toString().isEmpty() || lNameEntry.getText().toString().isEmpty()) {
             Toast.makeText(getApplicationContext(), "Fields are empty...", Toast.LENGTH_SHORT).show();
             return;
-        }else {
-            if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+        } else {
+            if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
                 uNameEntry.setError("Please enter a valid email.");
                 return;
             }
         }
-            Toast.makeText(getApplicationContext(), "Signing you up...", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "Signing you up...", Toast.LENGTH_SHORT).show();
         currentAuth.createUserWithEmailAndPassword(email, pass)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
@@ -105,10 +105,10 @@ public class SignUpActivity extends AppCompatActivity {
                                     mDatabase.getReference("Users").child(user.getUid()).child("ListOfBags").child("All").setValue(tempBag).addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
-                                            if(task.isSuccessful()){
+                                            if (task.isSuccessful()) {
                                                 Toast.makeText(getApplicationContext(), "Sign up sucessful.", Toast.LENGTH_LONG).show();
                                                 startActivity(intent);
-                                            }else {
+                                            } else {
                                                 Toast.makeText(getApplicationContext(), "Sign up failed.", Toast.LENGTH_LONG).show();
                                             }
                                         }

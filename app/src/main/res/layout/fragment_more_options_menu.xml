@@ -1,0 +1,41 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:backgroundTint="@color/PureBlack">
+
+    <Button
+        android:id="@+id/signOutButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="@color/PrimaryBlue"
+        android:drawableLeft="@drawable/ic_baseline_account_circle_24"
+        android:fontFamily="@font/poppinsregular"
+        android:padding="8dp"
+        android:text="Sign out"
+        android:textAlignment="textStart"
+        android:textColor="@color/PrimaryGrey"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/removeBagButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/signOutButton"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:backgroundTint="@color/PrimaryBlue"
+        android:drawableLeft="@drawable/ic_baseline_settings_24"
+        android:fontFamily="@font/poppinsregular"
+        android:padding="8dp"
+        android:text="Reset Password"
+        android:textAlignment="textStart"
+        android:textColor="@color/PrimaryGrey"
+        android:textSize="18sp" />
+
+
+</RelativeLayout>

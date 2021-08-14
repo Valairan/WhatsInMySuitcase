@@ -7,13 +7,20 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
+import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,8 +28,13 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.valairan.Abstract.Item;
+import com.valairan.Abstract.suitcaseForSpinner;
+import com.valairan.adapters.SuitcaseAdapter;
 import com.valairan.inventory.MainActivity;
 import com.valairan.inventory.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class AddItem extends DialogFragment {
@@ -31,9 +43,8 @@ public class AddItem extends DialogFragment {
     private EditText itemName;
     private EditText itemCount;
     private EditText itemType;
-    private EditText itemLocation;
     private EditText itemNotes;
-
+    private Spinner itemLocationSpinner;
     FirebaseUser currentUser;
     String currentUserUID;
     FirebaseDatabase database;
@@ -46,12 +57,24 @@ public class AddItem extends DialogFragment {
 
     public Button cancelButton;
     public Button updateButon;
+    String name, type, count, notes;
 
-    // TODO: Rename and change types and number of parameters
-    public static AddItem newInstance(String param1, String param2) {
-        AddItem fragment = new AddItem();
-        return fragment;
+    public List<suitcaseForSpinner> localList;
+
+
+    public AddItem( String Name, String Type, String Quantity, String Notes,List<suitcaseForSpinner> listOfBags) {
+        name = Name;
+        type = Type;
+        count = Quantity;
+        notes = Notes;
+        localList = listOfBags;
+
     }
+    public AddItem(List<suitcaseForSpinner> listOfBags) {
+        localList = listOfBags;
+
+    }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -70,24 +93,31 @@ public class AddItem extends DialogFragment {
         itemName = view.findViewById(R.id.itemNameEntry);
         itemCount = view.findViewById(R.id.itemQuantityEntry);
         itemType = view.findViewById(R.id.itemTypeEntry);
-        itemLocation = view.findViewById(R.id.itemLocationEntry);
+        itemLocationSpinner = view.findViewById(R.id.itemLocationSpinner);
         itemNotes = view.findViewById(R.id.specialNotesEntryAddItem);
-
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
         currentUserUID = currentUser.getUid();
         database = FirebaseDatabase.getInstance();
         databaseRefRoot = database.getReference("Users");
         databaseRefInventory = databaseRefRoot.child(currentUserUID).child("Inventory");
 
+        localList.remove(0);
+
+        SuitcaseAdapter localAdapter = new SuitcaseAdapter(this.getContext(), R.layout.support_simple_spinner_dropdown_item, (ArrayList<suitcaseForSpinner>) localList);
+        itemLocationSpinner.setAdapter(localAdapter);
+        localAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
+        localAdapter.notifyDataSetChanged();
+
+        if(!(name == null) && !(count == null) && !(type == null) && !(notes == null)){
+            itemName.setText(name);
+            itemCount.setText(count);
+            itemType.setText(type);
+            itemNotes.setText(notes);
+        }
+
         AddItem fragment = this;
 
-        cancelButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                fragment.dismiss();
-            }
-        });
+        cancelButton.setOnClickListener(view1 -> fragment.dismiss());
 
         updateButon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,13 +127,22 @@ public class AddItem extends DialogFragment {
                 String itemNameString = itemName.getText().toString().trim();
                 String itemCountString = itemCount.getText().toString().trim();
                 String itemTypeString = itemType.getText().toString().trim();
-                String itemLocationString = itemLocation.getText().toString().trim();
+                suitcaseForSpinner locationTemp = (suitcaseForSpinner) itemLocationSpinner.getSelectedItem();
+                String itemLocationString = locationTemp.getName();
                 String itemNotesString = itemNotes.getText().toString().trim();
 
-                Item temp = new Item(itemNameString, itemCountString, itemLocationString, itemTypeString, itemNotesString);
-                databaseRefInventory.child(itemNameString).setValue(temp);
+                if(itemNameString.isEmpty() || itemCountString.isEmpty() || itemLocationString.isEmpty()){
+                    Toast.makeText(getContext(), "Fields are empty.", Toast.LENGTH_SHORT).show();
+                }else {
+                    if(itemNotesString.isEmpty()){
+                        itemNotesString = "-";
+                    }
+                    Item temp = new Item(itemNameString, itemCountString, itemLocationString, itemTypeString, itemNotesString);
+                    databaseRefInventory.child(itemNameString).setValue(temp);
 
-                Toast.makeText(getContext(), "Item added to bag.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Item added to bag.", Toast.LENGTH_SHORT).show();
+
+                }
 
             }
         });

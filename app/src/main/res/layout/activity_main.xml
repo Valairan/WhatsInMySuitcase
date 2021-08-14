@@ -16,9 +16,24 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:dropDownSelector="@color/PureBlack"
-        android:textColor="@color/PrimaryGrey"
+        android:layout_toStartOf="@+id/moreOptions"
+        android:foregroundTint="@color/PureBlack"
+        android:foregroundTintMode="src_over"
+
         android:textSize="18sp" />
+
+
+    <ImageView
+        android:id="@+id/moreOptions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/bagSelector"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:foregroundGravity="center"
+        android:src="@drawable/ic_baseline_more_vert_24" />
 
     <Button
         android:id="@+id/removeBagButton"
@@ -31,6 +46,7 @@
         android:backgroundTint="@color/PrimaryBlue"
         android:fontFamily="@font/poppinsregular"
         android:text="- bag"
+
         android:textColor="@color/PrimaryGrey"
         android:textSize="18sp" />
 
@@ -79,6 +95,6 @@
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
         android:focusable="false"
-        android:indeterminateTint="@color/PrimaryBlue"/>
+        android:indeterminateTint="@color/PrimaryBlue" />
 
 </RelativeLayout>

@@ -88,7 +88,7 @@
         android:layout_height="match_parent"
         android:layout_centerInParent="true"
         android:focusable="false"
-        android:indeterminateTint="@color/PrimaryBlue"/>
+        android:indeterminateTint="@color/PrimaryBlue" />
 
 
 </RelativeLayout>

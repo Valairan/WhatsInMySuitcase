@@ -8,8 +8,8 @@
     android:orientation="vertical"
     tools:context="com.valairan.Fragments.AddBag">
 
-    <EditText
-        android:id="@+id/itemNameEntry"
+    <TextView
+        android:id="@+id/label1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="12dp"
@@ -17,76 +17,25 @@
         android:layout_marginRight="12dp"
         android:backgroundTint="@color/PrimaryBlue"
         android:fontFamily="@font/poppinsregular"
-        android:hint="Item Name"
-        android:inputType="textEmailAddress"
-        android:maxLines="1"
+        android:text="This will remove the bag and all items in it."
         android:textColor="@color/PrimaryGrey"
         android:textColorHint="@color/SecondaryGrey"
         android:textSize="28sp" />
 
-    <EditText
-        android:id="@+id/itemQuantityEntry"
+    <TextView
+        android:id="@+id/label2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="12dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="24dp"
         android:layout_marginRight="12dp"
         android:backgroundTint="@color/PrimaryBlue"
         android:fontFamily="@font/poppinsregular"
-        android:hint="Item Quantity"
-        android:inputType="textEmailAddress"
-        android:maxLines="1"
+        android:text="Are you sure?"
         android:textColor="@color/PrimaryGrey"
         android:textColorHint="@color/SecondaryGrey"
         android:textSize="28sp" />
 
-    <EditText
-        android:id="@+id/itemTypeEntry"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="12dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginRight="12dp"
-        android:backgroundTint="@color/PrimaryBlue"
-        android:fontFamily="@font/poppinsregular"
-        android:hint="Item Type"
-        android:inputType="textEmailAddress"
-        android:maxLines="1"
-        android:textColor="@color/PrimaryGrey"
-        android:textColorHint="@color/SecondaryGrey"
-        android:textSize="28sp" />
-
-
-    <Spinner
-        android:id="@+id/itemLocationSpinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="12dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginRight="12dp"
-        android:backgroundTint="@color/PrimaryBlue"
-        android:fontFamily="@font/poppinsregular"
-        android:hint="Item Location"
-        android:inputType="textEmailAddress"
-        android:textColor="@color/PrimaryGrey"
-        android:textColorHint="@color/SecondaryGrey"
-        android:textSize="28sp" />
-
-    <EditText
-        android:id="@+id/specialNotesEntryAddItem"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="12dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginRight="12dp"
-        android:backgroundTint="@color/PrimaryBlue"
-        android:fontFamily="@font/poppinsregular"
-        android:hint="Notes"
-        android:inputType="textEmailAddress"
-        android:maxLines="1"
-        android:textColor="@color/PrimaryGrey"
-        android:textColorHint="@color/SecondaryGrey"
-        android:textSize="28sp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -100,7 +49,7 @@
             android:layout_weight="1" />
 
         <Button
-            android:id="@+id/cancelButtonAddItem"
+            android:id="@+id/cancelButtonAddBag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -112,14 +61,14 @@
             android:textSize="18sp" />
 
         <Button
-            android:id="@+id/updateButtonAddItem"
+            android:id="@+id/updateButtonAddBag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:backgroundTint="@color/PrimaryBlue"
             android:fontFamily="@font/poppinsregular"
-            android:text="Update"
+            android:text="Remove"
             android:textColor="@color/PrimaryGrey"
             android:textSize="18sp" />
 

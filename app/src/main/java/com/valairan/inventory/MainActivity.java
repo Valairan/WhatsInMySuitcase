@@ -8,12 +8,16 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.SimpleAdapter;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -36,6 +40,7 @@ import com.valairan.adapters.InventoryAdapter;
 import com.valairan.adapters.SuitcaseAdapter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -45,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
     DatabaseReference databaseRefRoot;
     DatabaseReference databaseRefBagList;
     DatabaseReference databaseRefInventory;
-
+    DataSnapshot listSnapshotReturn;
 
     public Spinner bagSelector;
     public RecyclerView inventoryRecyclerView;
@@ -70,6 +75,9 @@ public class MainActivity extends AppCompatActivity {
 
 
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if (currentUser != null) {
+
+        }
         currentUserUID = currentUser.getUid();
         database = FirebaseDatabase.getInstance();
         databaseRefRoot = database.getReference("Users");
@@ -102,59 +110,67 @@ public class MainActivity extends AppCompatActivity {
         inventoryRecyclerView.setAdapter(itemSelectorAdapter);
 
 
-
-        addBagButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AddBag fragment = new AddBag();
-                fragment.show(getSupportFragmentManager(), "Bag adding fragment");
-            }
+        addBagButton.setOnClickListener(view -> {
+            AddBag fragment = new AddBag();
+            fragment.show(getSupportFragmentManager(), "Bag adding fragment");
         });
 
-        removeBagButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        removeBagButton.setOnClickListener(view -> {
 
-                suitcaseForSpinner removeThis = (suitcaseForSpinner) bagSelector.getSelectedItem();
-                Log.e(" All items ", removeThis.getName());
-                if(removeThis.getName().equals("All items")){
-                    Toast.makeText(getApplicationContext(), "Nothing was removed.", Toast.LENGTH_LONG).show();
+            suitcaseForSpinner removeThis = (suitcaseForSpinner) bagSelector.getSelectedItem();
+            if (removeThis.getName().equals("All items")) {
+                Toast.makeText(getApplicationContext(), "Nothing was removed.", Toast.LENGTH_LONG).show();
 
-                }else {
-                    databaseRefBagList.child(removeThis.getName()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void unused) {
-                            Toast.makeText(getApplicationContext(), "Removed selected item.", Toast.LENGTH_LONG).show();
+            } else {
+                databaseRefBagList.child(removeThis.getName()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
 
-                        }
-                    });
-                }
+                        Toast.makeText(getApplicationContext(), "Removed selected item.", Toast.LENGTH_LONG).show();
 
+                    }
+                });
             }
+
         });
 
-        addItemButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AddItem fragment = new AddItem();
-                fragment.show(getSupportFragmentManager(), "Item adding fragment");
-            }
+        addItemButton.setOnClickListener(view -> {
+            AddItem fragment = new AddItem((List) listOfBags);
+            fragment.show(getSupportFragmentManager(), "Item adding fragment");
         });
-
-
 
 
         bagSelector.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 selectedItem = (suitcaseForSpinner) bagSelector.getItemAtPosition(i);
-                databaseRefInventory.get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<DataSnapshot> task) {
-                        inventoryListener.onDataChange(task.getResult());
-                    }
-                });
+                listOfItems.clear();
 
+                if (selectedItem.getName().equals("All")) {
+                    for (DataSnapshot ds : listSnapshotReturn.getChildren()) {
+                            Item temp = new Item(ds.child("itemName").getValue().toString(),
+                                    ds.child("itemQuantity").getValue().toString(),
+                                    ds.child("itemLocation").getValue().toString(),
+                                    ds.child("itemType").getValue().toString(),
+                                    ds.child("notes").getValue().toString());
+                            listOfItems.add(temp);
+
+                    }
+                } else {
+                    for (DataSnapshot ds : listSnapshotReturn.getChildren()) {
+                        if (ds.child("itemLocation").getValue().toString().equals(selectedItem.getName())) {
+                            Item temp = new Item(ds.child("itemName").getValue().toString(),
+                                    ds.child("itemQuantity").getValue().toString(),
+                                    ds.child("itemLocation").getValue().toString(),
+                                    ds.child("itemType").getValue().toString(),
+                                    ds.child("notes").getValue().toString());
+                            listOfItems.add(temp);
+                        }
+
+                    }
+                }
+
+                itemSelectorAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -162,9 +178,26 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("", "Nothing Selected");
             }
         });
+
+
+        inventoryRecyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
+            @Override
+            public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+                return false;
+            }
+
+            @Override
+            public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
+            }
+
+            @Override
+            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
+
+            }
+        });
+
         bagSelector.setSelection(0);
         selectedItem = (suitcaseForSpinner) bagSelector.getSelectedItem();
-
 
 
         Handler handler = new Handler();
@@ -208,7 +241,6 @@ public class MainActivity extends AppCompatActivity {
                 suitcaseForSpinner temp = new suitcaseForSpinner(key);
                 listOfBags.add(temp);
                 //listOfBags.add(key);
-                Log.e("Key", key);
             }
             bagSelectorAdapter.notifyDataSetChanged();
 
@@ -220,16 +252,15 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-
-
     ValueEventListener inventoryListener = new ValueEventListener() {
         @Override
         public void onDataChange(@NonNull DataSnapshot snapshot) {
             listOfItems.clear();
+            listSnapshotReturn = snapshot;
             for (DataSnapshot ds : snapshot.getChildren()) {
                 String key = ds.getKey();
 
-                if(selectedItem == null || selectedItem.getName().equals("All items") ){
+                if (selectedItem == null || selectedItem.getName().equals("All")) {
                     Item temp = new Item(ds.child("itemName").getValue().toString(),
                             ds.child("itemQuantity").getValue().toString(),
                             ds.child("itemLocation").getValue().toString(),
@@ -250,6 +281,7 @@ public class MainActivity extends AppCompatActivity {
 
         }
     };
+
 
     @Override
     public void onStart() {
