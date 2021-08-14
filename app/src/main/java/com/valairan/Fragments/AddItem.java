@@ -1,27 +1,17 @@
 package com.valairan.Fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.Handler;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Adapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.RelativeLayout;
-import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -30,12 +20,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.valairan.Abstract.Item;
 import com.valairan.Abstract.suitcaseForSpinner;
 import com.valairan.adapters.SuitcaseAdapter;
-import com.valairan.inventory.MainActivity;
 import com.valairan.inventory.R;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.*;
 
 public class AddItem extends DialogFragment {
 
@@ -71,7 +60,7 @@ public class AddItem extends DialogFragment {
 
     }
     public AddItem(List<suitcaseForSpinner> listOfBags) {
-        localList = listOfBags;
+        this.localList = listOfBags;
 
     }
 
@@ -101,9 +90,10 @@ public class AddItem extends DialogFragment {
         databaseRefRoot = database.getReference("Users");
         databaseRefInventory = databaseRefRoot.child(currentUserUID).child("Inventory");
 
-        localList.remove(0);
+        List<suitcaseForSpinner> swapList = new ArrayList<suitcaseForSpinner>(localList);
+        swapList.remove(0);
 
-        SuitcaseAdapter localAdapter = new SuitcaseAdapter(this.getContext(), R.layout.support_simple_spinner_dropdown_item, (ArrayList<suitcaseForSpinner>) localList);
+        SuitcaseAdapter localAdapter = new SuitcaseAdapter(this.getContext(), R.layout.support_simple_spinner_dropdown_item, (ArrayList<suitcaseForSpinner>) swapList);
         itemLocationSpinner.setAdapter(localAdapter);
         localAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         localAdapter.notifyDataSetChanged();

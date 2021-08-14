@@ -35,22 +35,7 @@
         android:foregroundGravity="center"
         android:src="@drawable/ic_baseline_more_vert_24" />
 
-    <Button
-        android:id="@+id/removeBagButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/bagSelector"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_toStartOf="@id/addBagButton"
-        android:backgroundTint="@color/PrimaryBlue"
-        android:fontFamily="@font/poppinsregular"
-        android:text="- bag"
-
-        android:textColor="@color/PrimaryGrey"
-        android:textSize="18sp" />
-
-    <Button
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addBagButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -58,11 +43,42 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:backgroundTint="@color/PrimaryBlue"
-        android:fontFamily="@font/poppinsregular"
-        android:text="+ bag"
-        android:textColor="@color/PrimaryGrey"
-        android:textSize="18sp" />
+        android:layout_marginBottom="16dp"
+        android:src="@mipmap/add_baggage_icon_foreground"
+        app:backgroundTint="@color/PrimaryBlue"
+        app:maxImageSize="84dp"
+        app:rippleColor="@color/SecondaryBlue"
+        app:tint="@null" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/removeBagButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bagSelector"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_toStartOf="@+id/addBagButton"
+        android:src="@mipmap/remove_baggage_icon_foreground"
+        app:backgroundTint="@color/PrimaryBlue"
+        app:maxImageSize="84dp"
+        app:rippleColor="@color/SecondaryBlue"
+        app:tint="@null" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/bagInfoButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bagSelector"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:layout_toStartOf="@+id/removeBagButton"
+        android:src="@mipmap/info_baggage_icon_foreground"
+        app:backgroundTint="@color/PrimaryBlue"
+        app:maxImageSize="84dp"
+        app:rippleColor="@color/SecondaryBlue"
+        app:tint="@null" />
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -83,9 +99,9 @@
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:src="@drawable/ic_baseline_add_28"
+        android:src="@mipmap/list_add_icon_foreground"
         app:backgroundTint="@color/PrimaryBlue"
-        app:maxImageSize="38dp"
+        app:maxImageSize="84dp"
         app:rippleColor="@color/SecondaryBlue"
         app:tint="@null" />
 

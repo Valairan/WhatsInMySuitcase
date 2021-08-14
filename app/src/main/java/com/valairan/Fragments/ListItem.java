@@ -19,8 +19,7 @@ import java.net.URI;
  */
 public class ListItem extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
     private static final String Name = "Item Name";
     private static final String Quantity = "Quantity";
     private static final String Location = "Location";
@@ -30,14 +29,6 @@ public class ListItem extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-
-     * @return A new instance of fragment ListItem.
-     */
-    // TODO: Rename and change types and number of parameters
     public static ListItem newInstance(String Name, String Quantity, String Location, String SpecialNotes, URI itemImage) {
         ListItem fragment = new ListItem();
         Bundle args = new Bundle();

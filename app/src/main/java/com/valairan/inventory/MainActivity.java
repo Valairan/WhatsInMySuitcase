@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -32,6 +33,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.valairan.Abstract.Bag;
 import com.valairan.Abstract.Item;
 import com.valairan.Abstract.suitcaseForSpinner;
 import com.valairan.Fragments.AddBag;
@@ -54,9 +56,10 @@ public class MainActivity extends AppCompatActivity {
 
     public Spinner bagSelector;
     public RecyclerView inventoryRecyclerView;
-    public Button addBagButton;
-    public Button removeBagButton;
+    public FloatingActionButton addBagButton;
+    public FloatingActionButton removeBagButton;
     public FloatingActionButton addItemButton;
+    public FloatingActionButton bagInfoButton;
     public ProgressBar progressBar;
 
     suitcaseForSpinner selectedItem;
@@ -88,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
 
         addBagButton = findViewById(R.id.addBagButton);
         removeBagButton = findViewById(R.id.removeBagButton);
+        bagInfoButton = findViewById(R.id.bagInfoButton);
 
         addItemButton = findViewById(R.id.addItemButton);
 
@@ -95,6 +99,8 @@ public class MainActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.loadingIcon_main);
 
         hideAll();
+
+
         listOfBags = new ArrayList<>();
         bagSelectorAdapter = new SuitcaseAdapter(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, listOfBags);
         bagSelector.setAdapter(bagSelectorAdapter);
@@ -134,8 +140,29 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
+        bagInfoButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                suitcaseForSpinner describeThis = (suitcaseForSpinner) bagSelector.getSelectedItem();
+                databaseRefBagList.child(describeThis.getName().toString()).get().addOnSuccessListener(new OnSuccessListener<DataSnapshot>() {
+                    @Override
+                    public void onSuccess(DataSnapshot dataSnapshot) {
+                        String name = dataSnapshot.child("fullName").getValue().toString();
+                        String capacity = dataSnapshot.child("capacity").getValue().toString();
+                        String notes = dataSnapshot.child("specialNotes").getValue().toString();
+                        Bag temp = new Bag(name, capacity, notes);
+                        AddBag addBag = new AddBag(temp);
+                        addBag.show(getSupportFragmentManager(), "Bag editing fragment");
+                    }
+                });
+
+
+            }
+        });
+
+
         addItemButton.setOnClickListener(view -> {
-            AddItem fragment = new AddItem((List) listOfBags);
+            AddItem fragment = new AddItem(listOfBags);
             fragment.show(getSupportFragmentManager(), "Item adding fragment");
         });
 
@@ -146,7 +173,7 @@ public class MainActivity extends AppCompatActivity {
                 selectedItem = (suitcaseForSpinner) bagSelector.getItemAtPosition(i);
                 listOfItems.clear();
 
-                if (selectedItem.getName().equals("All")) {
+                if (selectedItem.getName().equals("All items")) {
                     for (DataSnapshot ds : listSnapshotReturn.getChildren()) {
                             Item temp = new Item(ds.child("itemName").getValue().toString(),
                                     ds.child("itemQuantity").getValue().toString(),
@@ -180,21 +207,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        inventoryRecyclerView.addOnItemTouchListener(new RecyclerView.OnItemTouchListener() {
-            @Override
-            public boolean onInterceptTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
-                return false;
-            }
 
-            @Override
-            public void onTouchEvent(@NonNull RecyclerView rv, @NonNull MotionEvent e) {
-            }
-
-            @Override
-            public void onRequestDisallowInterceptTouchEvent(boolean disallowIntercept) {
-
-            }
-        });
 
         bagSelector.setSelection(0);
         selectedItem = (suitcaseForSpinner) bagSelector.getSelectedItem();
@@ -216,6 +229,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void hideAll() {
         bagSelector.setVisibility(View.INVISIBLE);
+        bagInfoButton.setVisibility(View.INVISIBLE);
         inventoryRecyclerView.setVisibility(View.INVISIBLE);
         addBagButton.setVisibility(View.INVISIBLE);
         removeBagButton.setVisibility(View.INVISIBLE);
@@ -225,6 +239,7 @@ public class MainActivity extends AppCompatActivity {
     private void showAll() {
         progressBar.setVisibility(View.GONE);
         bagSelector.setVisibility(View.VISIBLE);
+        bagInfoButton.setVisibility(View.VISIBLE);
         inventoryRecyclerView.setVisibility(View.VISIBLE);
         addBagButton.setVisibility(View.VISIBLE);
         removeBagButton.setVisibility(View.VISIBLE);
@@ -260,7 +275,7 @@ public class MainActivity extends AppCompatActivity {
             for (DataSnapshot ds : snapshot.getChildren()) {
                 String key = ds.getKey();
 
-                if (selectedItem == null || selectedItem.getName().equals("All")) {
+                if (selectedItem == null || selectedItem.getName().equals("All items")) {
                     Item temp = new Item(ds.child("itemName").getValue().toString(),
                             ds.child("itemQuantity").getValue().toString(),
                             ds.child("itemLocation").getValue().toString(),
