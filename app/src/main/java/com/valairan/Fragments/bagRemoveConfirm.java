@@ -23,6 +23,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.valairan.inventory.Constants;
 import com.valairan.inventory.R;
 
 public class bagRemoveConfirm extends DialogFragment {
@@ -96,6 +97,7 @@ public class bagRemoveConfirm extends DialogFragment {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.exists()) {
                             snapshot.child(name).getRef().removeValue();
+                            Toast.makeText(getContext(), Constants.REMOVED_BAG, Toast.LENGTH_SHORT).show();
                         }
                     }
 

@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
 
             suitcaseForSpinner removeThis = (suitcaseForSpinner) bagSelector.getSelectedItem();
             if (removeThis.getName().equals("All items")) {
-                Toast.makeText(getApplicationContext(), "Nothing was removed.", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), Constants.NO_CHANGE, Toast.LENGTH_SHORT).show();
 
             } else {
                 bagRemoveConfirm fragment = new bagRemoveConfirm(removeThis.getName());
@@ -192,7 +192,7 @@ public class MainActivity extends AppCompatActivity {
                         AddItem fragment = new AddItem(listOfBags);
                         fragment.show(getSupportFragmentManager(), "Item adding fragment");
                     }else {
-                        Toast.makeText(getApplicationContext(), "Please add a bag first.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), Constants.ADD_BAG, Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -303,7 +303,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onCancelled(@NonNull DatabaseError error) {
-            Toast.makeText(getApplicationContext(), "Something went wrong. Please reload the app.", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), Constants.GENERIC_ERROR_MSG, Toast.LENGTH_SHORT).show();
         }
     };
 
@@ -332,7 +332,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onCancelled(@NonNull DatabaseError error) {
-            Toast.makeText(getApplicationContext(), "Something went wrong. Please reload the app.", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), Constants.GENERIC_ERROR_MSG, Toast.LENGTH_SHORT).show();
 
         }
     };

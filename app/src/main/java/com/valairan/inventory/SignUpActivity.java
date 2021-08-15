@@ -78,7 +78,7 @@ public class SignUpActivity extends AppCompatActivity {
         String email = uNameEntry.getText().toString();
         String pass = pWordEntry.getText().toString();
         if (email.isEmpty() || pass.isEmpty() || fNameEntry.getText().toString().isEmpty() || lNameEntry.getText().toString().isEmpty()) {
-            Toast.makeText(getApplicationContext(), "Fields are empty...", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), Constants.GENERIC_ERROR_MSG, Toast.LENGTH_SHORT).show();
             return;
         } else {
             if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
@@ -106,10 +106,10 @@ public class SignUpActivity extends AppCompatActivity {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if (task.isSuccessful()) {
-                                                Toast.makeText(getApplicationContext(), "Sign up sucessful.", Toast.LENGTH_LONG).show();
+                                                Toast.makeText(getApplicationContext(), "Sign up sucessful.", Toast.LENGTH_SHORT).show();
                                                 startActivity(intent);
                                             } else {
-                                                Toast.makeText(getApplicationContext(), "Sign up failed.", Toast.LENGTH_LONG).show();
+                                                Toast.makeText(getApplicationContext(), Constants.GENERIC_ERROR_MSG, Toast.LENGTH_SHORT).show();
                                             }
                                         }
                                     });

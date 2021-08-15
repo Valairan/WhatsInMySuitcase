@@ -13,6 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
@@ -20,11 +23,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.valairan.Abstract.Item;
 import com.valairan.Abstract.suitcaseForSpinner;
 import com.valairan.adapters.SuitcaseAdapter;
+import com.valairan.inventory.Constants;
 import com.valairan.inventory.R;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.*;
 
 public class AddItem extends DialogFragment {
 
@@ -44,14 +47,15 @@ public class AddItem extends DialogFragment {
         // Required empty public constructor
     }
 
-    public Button cancelButton;
-    public Button updateButon;
+    public FloatingActionButton cancelItemButton;
+    public FloatingActionButton updateItemButton;
+    public FloatingActionButton deleteItemButton;
     String name, type, location, count, notes;
 
     public List<suitcaseForSpinner> localList;
 
 
-    public AddItem( String Name, String Type, String Quantity, String Notes,List<suitcaseForSpinner> listOfBags) {
+    public AddItem(String Name, String Type, String Quantity, String Notes, List<suitcaseForSpinner> listOfBags) {
         name = Name;
         type = Type;
         count = Quantity;
@@ -59,6 +63,7 @@ public class AddItem extends DialogFragment {
         localList = listOfBags;
 
     }
+
     public AddItem(List<suitcaseForSpinner> listOfBags) {
         this.localList = listOfBags;
 
@@ -76,8 +81,10 @@ public class AddItem extends DialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        cancelButton = view.findViewById(R.id.dismissItemMenuButton);
-        updateButon = view.findViewById(R.id.updateItemButton);
+        cancelItemButton = view.findViewById(R.id.dismissItemMenuButton);
+        deleteItemButton = view.findViewById(R.id.deleteItemButton);
+        updateItemButton = view.findViewById(R.id.updateItemButton);
+        deleteItemButton.setVisibility(View.GONE);
 
         itemName = view.findViewById(R.id.itemNameEntry);
         itemCount = view.findViewById(R.id.itemQuantityEntry);
@@ -98,22 +105,39 @@ public class AddItem extends DialogFragment {
         localAdapter.setDropDownViewResource(R.layout.support_simple_spinner_dropdown_item);
         localAdapter.notifyDataSetChanged();
 
-        if(!(name == null) && !(count == null) && !(type == null) && !(notes == null)){
+        if (!(name == null) && !(count == null) && !(type == null) && !(notes == null)) {
             itemName.setText(name);
             itemCount.setText(count);
             itemType.setText(type);
             itemNotes.setText(notes);
+            deleteItemButton.setVisibility(View.VISIBLE);
         }
 
         AddItem fragment = this;
 
-        cancelButton.setOnClickListener(view1 -> fragment.dismiss());
+        cancelItemButton.setOnClickListener(view1 -> fragment.dismiss());
 
-        updateButon.setOnClickListener(new View.OnClickListener() {
+        deleteItemButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "Adding item to bag.", Toast.LENGTH_SHORT).show();
+                databaseRefInventory.child(name).setValue(null).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isComplete()) {
+                            fragment.dismiss();
+                            Toast.makeText(getContext(), Constants.REMOVED_ITEM, Toast.LENGTH_SHORT).show();
+                        }else {
+                            Toast.makeText(getContext(), Constants.GENERIC_ERROR_MSG, Toast.LENGTH_SHORT).show();
 
+                        }
+                    }
+                });
+            }
+        });
+
+        updateItemButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 String itemNameString = itemName.getText().toString().trim();
                 String itemCountString = itemCount.getText().toString().trim();
                 String itemTypeString = itemType.getText().toString().trim();
@@ -121,16 +145,16 @@ public class AddItem extends DialogFragment {
                 String itemLocationString = locationTemp.getName();
                 String itemNotesString = itemNotes.getText().toString().trim();
 
-                if(itemNameString.isEmpty() || itemCountString.isEmpty() || itemLocationString.isEmpty()){
-                    Toast.makeText(getContext(), "Fields are empty.", Toast.LENGTH_SHORT).show();
-                }else {
-                    if(itemNotesString.isEmpty()){
+                if (itemNameString.isEmpty() || itemCountString.isEmpty() || itemLocationString.isEmpty()) {
+                    Toast.makeText(getContext(), Constants.EMPTY_FIELDS, Toast.LENGTH_SHORT).show();
+                } else {
+                    if (itemNotesString.isEmpty()) {
                         itemNotesString = "-";
                     }
                     Item temp = new Item(itemNameString, itemCountString, itemLocationString, itemTypeString, itemNotesString);
                     databaseRefInventory.child(itemNameString).setValue(temp);
 
-                    Toast.makeText(getContext(), "Item added to bag.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), Constants.ADDED_ITEM, Toast.LENGTH_SHORT).show();
 
                 }
 

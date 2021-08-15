@@ -21,6 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.valairan.Abstract.Bag;
+import com.valairan.inventory.Constants;
 import com.valairan.inventory.R;
 
 
@@ -102,7 +103,6 @@ public class AddBag extends DialogFragment {
         updateBagList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "Adding bag.", Toast.LENGTH_LONG).show();
 
                 bagName = bName.getText().toString().trim();
                 bagCapacity = bCapacity.getText().toString().trim();
@@ -113,9 +113,9 @@ public class AddBag extends DialogFragment {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {
                         if(task.isSuccessful()){
-                            Toast.makeText(getContext(), "Bag added.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), Constants.ADDED_BAG, Toast.LENGTH_SHORT).show();
                         }else {
-                            Toast.makeText(getContext(), "Something went wrong. Please try again", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getContext(), Constants.GENERIC_ERROR_MSG, Toast.LENGTH_SHORT).show();
                         }
                     }
                 });

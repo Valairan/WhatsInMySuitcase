@@ -105,7 +105,7 @@ public class LoginActivity extends AppCompatActivity {
         String email = uNameEntry.getText().toString();
         String pass = pWordEntry.getText().toString();
         if (email.isEmpty() || pass.isEmpty()) {
-            Toast.makeText(getApplicationContext(), "Fields are empty...", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), Constants.EMPTY_FIELDS, Toast.LENGTH_SHORT).show();
             return;
         } else {
             if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
@@ -113,7 +113,6 @@ public class LoginActivity extends AppCompatActivity {
                 return;
             }
         }
-        Toast.makeText(getApplicationContext(), "Logging you in", Toast.LENGTH_SHORT).show();
 
         currentAuth.signInWithEmailAndPassword(email, pass)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
@@ -123,7 +122,6 @@ public class LoginActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             FirebaseUser user = currentAuth.getCurrentUser();
                             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                            Toast.makeText(getApplicationContext(), "Login successful", Toast.LENGTH_SHORT).show();
 
                             startActivity(intent);
 
@@ -134,7 +132,7 @@ public class LoginActivity extends AppCompatActivity {
 
                         } else {
                             // If sign in fails, display a message to the user.
-                            Toast.makeText(getApplicationContext(), "Authentication failed. Please try again.",
+                            Toast.makeText(getApplicationContext(), Constants.GENERIC_ERROR_MSG,
                                     Toast.LENGTH_SHORT).show();
                         }
                     }
