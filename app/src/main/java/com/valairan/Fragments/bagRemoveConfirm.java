@@ -2,55 +2,132 @@ package com.valairan.Fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.valairan.inventory.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link bagRemoveConfirm#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class bagRemoveConfirm extends Fragment {
+public class bagRemoveConfirm extends DialogFragment {
 
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    private String mParam1;
-    private String mParam2;
+    String name;
+    String currentUserUID;
+
+
+    public Button cancel;
+    public Button confirm;
+
+    FirebaseUser currentUser;
+    FirebaseAuth currentAuth;
+    FirebaseDatabase database;
+    DatabaseReference databaseRefRoot;
+    DatabaseReference databaseRefBagList;
 
     public bagRemoveConfirm() {
         // Required empty public constructor
     }
 
-
-    public static bagRemoveConfirm newInstance(String param1, String param2) {
-        bagRemoveConfirm fragment = new bagRemoveConfirm();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+    public bagRemoveConfirm(String name) {
+        this.name = name;
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
+        currentAuth = FirebaseAuth.getInstance();
+        currentUser = currentAuth.getCurrentUser();
+        currentUserUID = currentUser.getUid();
+        database = FirebaseDatabase.getInstance();
+        databaseRefRoot = database.getReference("Users");
+        databaseRefBagList = databaseRefRoot.child(currentUserUID).child("ListOfBags");
+
         return inflater.inflate(R.layout.fragment_bag_remove_confirm, container, false);
+    }
+
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        cancel = view.findViewById(R.id.cancelRemoveBag);
+        confirm = view.findViewById(R.id.confirmRemoveBag);
+        bagRemoveConfirm fragment = this;
+
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                fragment.dismiss();
+            }
+        });
+
+        confirm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Query queryBag = databaseRefRoot.child(currentUserUID).child("ListOfBags").orderByChild("fullName").equalTo(name);
+                queryBag.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            snapshot.child(name).getRef().removeValue();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+                Query queryItems = databaseRefRoot.child(currentUserUID).child("Inventory").orderByChild("itemLocation").equalTo(name);
+
+                queryItems.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.exists()) {
+                            for (DataSnapshot ds : snapshot.getChildren()) {
+                                ds.getRef().removeValue();
+
+                            }
+                        }
+                        fragment.dismiss();
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+
+
+                });
+
+
+            }
+        });
     }
 }

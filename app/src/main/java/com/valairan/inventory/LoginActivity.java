@@ -1,6 +1,7 @@
 package com.valairan.inventory;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Patterns;
@@ -125,6 +126,11 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "Login successful", Toast.LENGTH_SHORT).show();
 
                             startActivity(intent);
+
+                            // ATTENTION: This was auto-generated to handle app links.
+                            Intent appLinkIntent = getIntent();
+                            String appLinkAction = appLinkIntent.getAction();
+                            Uri appLinkData = appLinkIntent.getData();
 
                         } else {
                             // If sign in fails, display a message to the user.

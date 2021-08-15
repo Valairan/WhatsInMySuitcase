@@ -15,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
@@ -38,6 +39,8 @@ import com.valairan.Abstract.Item;
 import com.valairan.Abstract.suitcaseForSpinner;
 import com.valairan.Fragments.AddBag;
 import com.valairan.Fragments.AddItem;
+import com.valairan.Fragments.bagRemoveConfirm;
+import com.valairan.Fragments.moreOptionsMenu;
 import com.valairan.adapters.InventoryAdapter;
 import com.valairan.adapters.SuitcaseAdapter;
 
@@ -61,15 +64,18 @@ public class MainActivity extends AppCompatActivity {
     public FloatingActionButton addItemButton;
     public FloatingActionButton bagInfoButton;
     public ProgressBar progressBar;
+    public ImageView moreOptionsButton;
 
     suitcaseForSpinner selectedItem;
 
     ArrayList<Item> listOfItems;
-    RecyclerView.Adapter itemSelectorAdapter;
+    InventoryAdapter itemSelectorAdapter;
     RecyclerView.LayoutManager itemSelectorLayoutManager;
 
     ArrayList<suitcaseForSpinner> listOfBags;
     SuitcaseAdapter bagSelectorAdapter;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,9 +84,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if (currentUser != null) {
-
-        }
         currentUserUID = currentUser.getUid();
         database = FirebaseDatabase.getInstance();
         databaseRefRoot = database.getReference("Users");
@@ -88,6 +91,8 @@ public class MainActivity extends AppCompatActivity {
         databaseRefInventory = databaseRefRoot.child(currentUserUID).child("Inventory");
 
         bagSelector = findViewById(R.id.bagSelector);
+
+        moreOptionsButton = findViewById(R.id.moreOptions);
 
         addBagButton = findViewById(R.id.addBagButton);
         removeBagButton = findViewById(R.id.removeBagButton);
@@ -99,6 +104,14 @@ public class MainActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.loadingIcon_main);
 
         hideAll();
+
+        moreOptionsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                moreOptionsMenu moreOptionsFragment = new moreOptionsMenu();
+                moreOptionsFragment.show(getSupportFragmentManager(), "More options menu");
+            }
+        });
 
 
         listOfBags = new ArrayList<>();
@@ -115,6 +128,20 @@ public class MainActivity extends AppCompatActivity {
         inventoryRecyclerView.setLayoutManager(itemSelectorLayoutManager);
         inventoryRecyclerView.setAdapter(itemSelectorAdapter);
 
+        itemSelectorAdapter.setOnItemClickListener(new InventoryAdapter.onItemClickListener() {
+            @Override
+            public void onItemClick(int position) {
+
+                String name = listOfItems.get(position).getItemName();
+                String type = listOfItems.get(position).getItemType();
+                String count = listOfItems.get(position).getItemQuantity();
+                String notes = listOfItems.get(position).getNotes();
+
+                AddItem editableFragment = new AddItem(name, type, count, notes, listOfBags);
+                editableFragment.show(getSupportFragmentManager(), "Editing Item");
+            }
+        });
+
 
         addBagButton.setOnClickListener(view -> {
             AddBag fragment = new AddBag();
@@ -128,14 +155,9 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), "Nothing was removed.", Toast.LENGTH_LONG).show();
 
             } else {
-                databaseRefBagList.child(removeThis.getName()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
+                bagRemoveConfirm fragment = new bagRemoveConfirm(removeThis.getName());
+                fragment.show(getSupportFragmentManager(), "Confirm bag removal dialog");
 
-                        Toast.makeText(getApplicationContext(), "Removed selected item.", Toast.LENGTH_LONG).show();
-
-                    }
-                });
             }
 
         });
@@ -162,8 +184,24 @@ public class MainActivity extends AppCompatActivity {
 
 
         addItemButton.setOnClickListener(view -> {
-            AddItem fragment = new AddItem(listOfBags);
-            fragment.show(getSupportFragmentManager(), "Item adding fragment");
+            Query query = database.getReference().child("Users").child(currentUserUID).child("ListOfBags");
+            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(snapshot.getChildrenCount() > 1){
+                        AddItem fragment = new AddItem(listOfBags);
+                        fragment.show(getSupportFragmentManager(), "Item adding fragment");
+                    }else {
+                        Toast.makeText(getApplicationContext(), "Please add a bag first.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
         });
 
 
@@ -228,6 +266,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void hideAll() {
+        moreOptionsButton.setVisibility(View.INVISIBLE);
         bagSelector.setVisibility(View.INVISIBLE);
         bagInfoButton.setVisibility(View.INVISIBLE);
         inventoryRecyclerView.setVisibility(View.INVISIBLE);
@@ -237,6 +276,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showAll() {
+        moreOptionsButton.setVisibility(View.VISIBLE);
         progressBar.setVisibility(View.GONE);
         bagSelector.setVisibility(View.VISIBLE);
         bagInfoButton.setVisibility(View.VISIBLE);

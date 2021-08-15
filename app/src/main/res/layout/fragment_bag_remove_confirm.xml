@@ -49,7 +49,7 @@
             android:layout_weight="1" />
 
         <Button
-            android:id="@+id/cancelButtonAddBag"
+            android:id="@+id/cancelRemoveBag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -61,7 +61,7 @@
             android:textSize="18sp" />
 
         <Button
-            android:id="@+id/updateButtonAddBag"
+            android:id="@+id/confirmRemoveBag"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"

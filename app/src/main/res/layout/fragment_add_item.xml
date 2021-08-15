@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -99,29 +100,46 @@
             android:layout_height="0dp"
             android:layout_weight="1" />
 
-        <Button
-            android:id="@+id/cancelButtonAddItem"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:backgroundTint="@color/PrimaryBlue"
-            android:fontFamily="@font/poppinsregular"
-            android:text="Cancel"
-            android:textColor="@color/PrimaryGrey"
-            android:textSize="18sp" />
 
-        <Button
-            android:id="@+id/updateButtonAddItem"
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/dismissItemMenuButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:backgroundTint="@color/PrimaryBlue"
-            android:fontFamily="@font/poppinsregular"
-            android:text="Update"
-            android:textColor="@color/PrimaryGrey"
-            android:textSize="18sp" />
+            android:layout_marginBottom="16dp"
+            android:src="@mipmap/list_remove_xmark_icon_foreground"
+            app:backgroundTint="@color/PrimaryBlue"
+            app:maxImageSize="84dp"
+            app:rippleColor="@color/SecondaryBlue"
+            app:tint="@null" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/deleteItemButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:src="@mipmap/list_remove_variant_icon_foreground"
+            app:backgroundTint="@color/PrimaryBlue"
+            app:maxImageSize="84dp"
+            app:rippleColor="@color/SecondaryBlue"
+            app:tint="@null" />
+
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/updateItemButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:src="@mipmap/list_add_variant_icon_foreground"
+            app:backgroundTint="@color/PrimaryBlue"
+            app:maxImageSize="84dp"
+            app:rippleColor="@color/SecondaryBlue"
+            app:tint="@null" />
 
     </LinearLayout>
 

@@ -46,7 +46,7 @@ public class AddItem extends DialogFragment {
 
     public Button cancelButton;
     public Button updateButon;
-    String name, type, count, notes;
+    String name, type, location, count, notes;
 
     public List<suitcaseForSpinner> localList;
 
@@ -76,8 +76,8 @@ public class AddItem extends DialogFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        cancelButton = view.findViewById(R.id.cancelButtonAddItem);
-        updateButon = view.findViewById(R.id.updateButtonAddItem);
+        cancelButton = view.findViewById(R.id.dismissItemMenuButton);
+        updateButon = view.findViewById(R.id.updateItemButton);
 
         itemName = view.findViewById(R.id.itemNameEntry);
         itemCount = view.findViewById(R.id.itemQuantityEntry);
