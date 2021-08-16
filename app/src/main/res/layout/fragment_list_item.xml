@@ -70,7 +70,7 @@
             android:layout_margin="8dp"
             android:layout_marginBottom="16dp"
             android:fontFamily="@font/poppinsregular"
-            android:text="Special Notes"
+            android:text="Notes"
             android:textColor="@color/SecondaryBlue"
             android:textSize="18sp" />
 
